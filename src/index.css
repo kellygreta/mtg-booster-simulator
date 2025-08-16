@@ -1,0 +1,22 @@
+/* Tema chiaro */
+.light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Tema scuro */
+.dark {
+  background-color: #121212;
+  color: #f8f9fa;
+}
+
+/* Adatta le card al tema */
+.dark .card {
+  background-color: #1e1e1e;
+  color: #f8f9fa;
+}
+
+.light .card {
+  background-color: #ffffff;
+  color: #212529;
+}

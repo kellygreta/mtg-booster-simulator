@@ -1,0 +1,30 @@
+rarity-common {
+  border: 2px solid #808080  !important; /* grigio */
+}
+
+.rarity-uncommon {
+  border: 2px solid #5a5abf !important; /* blu/argento */
+}
+
+.rarity-rare {
+  border: 2px solid gold  !important;
+}
+
+.rarity-mythic {
+  border: 2px solid darkorange  !important;
+}
+.card {
+  width: 100%; /* Prende la larghezza della colonna */
+  max-width: 300px; /* Limite massimo */
+  margin: 0 auto;  /*Centra la carta nella colonna */
+  transition: transform 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
