@@ -5,6 +5,7 @@ import BoosterPack from "./components/BoosterPack"; // Componente che mostra il 
 import { CardData } from "./components/Card"; // Tipo TypeScript per definire com'è fatta una carta
 import "bootstrap/dist/css/bootstrap.min.css"; // Stili di Bootstrap
 import "./App.css"; // Stili personalizzati
+import { boosterPrices } from "./data/boosterPrices";
 
 import { useTheme } from "./context/ThemeContext";
 
@@ -16,7 +17,8 @@ export default function App() {
   //const [opening, setOpening] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
-  const boosterPrice = 4.5; // Prezzo medio booster in USD
+  // dentro al componente
+  const boosterPrice = boosterPrices[selectedSet] || 4.5; // fallback prezzo medio booster in USD
 
   /**
    * Funzione che prende una carta casuale da Scryfall
@@ -144,9 +146,17 @@ export default function App() {
           <hr />
           <div className=" ">
             <h4>
-              {getTotalPrice(booster) >= boosterPrice
-                ? "💰 Hai vinto!"
-                : "💸 Hai perso, compra le singole!"}
+              {getTotalPrice(booster) >= boosterPrice ? (
+                <p>
+                  💰 Hai vinto! (Profitto: $
+                  {(getTotalPrice(booster) - boosterPrice).toFixed(2)})
+                </p>
+              ) : (
+                <p>
+                  💸 Hai perso, compra le singole! (Perdita: $
+                  {(getTotalPrice(booster) - boosterPrice).toFixed(2)}){" "}
+                </p>
+              )}
             </h4>
           </div>
           <small>Prezzo medio booster: ${boosterPrice.toFixed(2)}</small>
