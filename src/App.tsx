@@ -111,7 +111,13 @@ export default function App() {
           } position-absolute end-0 top-50 translate-middle-y`}
           onClick={toggleTheme}
         >
-          {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+          {/* Solo emoji sempre visibile */}
+          {theme === "light" ? "🌙" : "☀️"}
+
+          {/* Testo visibile solo da md in su */}
+          <span className="d-none d-md-inline ms-1">
+            {theme === "light" ? "Dark" : "Light"}
+          </span>
         </button>
       </div>
 
