@@ -111,6 +111,7 @@ export default function App() {
           } position-absolute end-0 top-50 translate-middle-y`}
           onClick={toggleTheme}
         >
+          {/* TODO aggiustare bottone da mobile */}
           {/* Solo emoji sempre visibile */}
           {theme === "light" ? "🌙" : "☀️"}
 
