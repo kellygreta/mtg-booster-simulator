@@ -49,6 +49,68 @@ export default function App() {
     return cards.sort((a, b) => order[a.rarity] - order[b.rarity]);
   }
 
+  // 🔹 Stampa in formato 3x3 carte per foglio A4
+  function printBooster(cards: CardData[]) {
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
+
+    const cardsPerPage = 9;
+    const cardWidthMm = 63; // dimensioni reali di Magic
+    const cardHeightMm = 88;
+    const marginMm = 0.2;
+
+    let html = `
+    <html>
+    <head>
+      <title>Booster Print</title>
+      <style>
+        body { margin:0; padding:0; }
+        .page {
+          display: grid;
+          grid-template-columns: repeat(3, ${cardWidthMm}mm);
+          grid-template-rows: repeat(3, ${cardHeightMm}mm);
+          gap: ${marginMm}mm;
+          page-break-after: always;
+          justify-content: center;
+          align-content: center;
+        }
+        img {
+          width: ${cardWidthMm}mm;
+          height: ${cardHeightMm}mm;
+          object-fit: cover;
+        }
+      </style>
+    </head>
+    <body>
+  `;
+
+    // Creiamo le pagine 3x3
+    for (let i = 0; i < cards.length; i += cardsPerPage) {
+      html += `<div class="page">`;
+      const pageCards = cards.slice(i, i + cardsPerPage);
+      for (const card of pageCards) {
+        // prendiamo l'immagine in alta qualità
+        const imgUrl = card.image_uris?.normal;
+        if (imgUrl) {
+          html += `<img src="${imgUrl}" alt="${card.name}" />`;
+        }
+      }
+      html += `</div>`;
+    }
+
+    html += `
+    <script>
+      window.onload = function() {
+        window.print();
+      }
+    </script>
+    </body></html>
+  `;
+
+    printWindow.document.write(html);
+    printWindow.document.close();
+  }
+
   async function fetchLandOrToken(setCode: string): Promise<CardData> {
     const isToken = Math.random() < 0.5; // 50% possibilità
 
@@ -163,6 +225,14 @@ export default function App() {
             </h4>
           </div>
           <small>Prezzo medio booster: ${boosterPrice.toFixed(2)}</small>
+          <br />
+          <hr />
+          <button
+            className="btn btn-success mt-3"
+            onClick={() => printBooster(booster)}
+          >
+            🖨️ Stampa carte
+          </button>
         </div>
       )}
     </div>
