@@ -9,13 +9,13 @@ Permette di scegliere un set e aprire un booster pack simulato con la corretta d
 - Scegli la espansione che vuoi sbustare.
 - Recupera delle immagini e dei dati tramite **Scryfall API**.
 - Visualizza le carte in ordine di rarità in modo da farti una idea su cosa potresti trovare in ogni pacchetto con una distribuzione fedele delle rarità:
+
   - 1 Rara o Mitica (con probabilità ~12,5% di Mitica)
   - 3 Non comuni
   - 10 Comuni
   - 1 Terra o Token
 
--Calcolo del valore totale del pacchetto e confronto con il prezzo reale del booster.
-
+- Calcolo del valore totale del pacchetto e confronto con il prezzo reale del booster.
 - TODO draft mode: Stampa diretta dal browser delle **carte** che hai appena sbustato.
 
 ## 🛠️ Tecnologie
