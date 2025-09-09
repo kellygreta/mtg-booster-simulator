@@ -49,15 +49,26 @@ export default function App() {
     return cards.sort((a, b) => order[a.rarity] - order[b.rarity]);
   }
 
-  async function fetchLand(setCode: string): Promise<CardData> {
+  async function fetchLandOrToken(setCode: string): Promise<CardData> {
+    const isToken = Math.random() < 0.5; // 50% possibilità
+
+    if (isToken) {
+      const res = await fetch(
+        `https://api.scryfall.com/cards/search?q=set:T${setCode}`
+      );
+      const data = await res.json();
+      if (data.data.length > 0) {
+        return data.data[Math.floor(Math.random() * data.data.length)];
+      }
+    }
+
+    // fallback: terra
     const res = await fetch(
-      `https://api.scryfall.com/cards/search?q=set:${setCode}+(type:land)`
+      `https://api.scryfall.com/cards/search?q=set:${setCode}+type:land`
     );
     const data = await res.json();
-    const lands: CardData[] = data.data;
-    return lands[Math.floor(Math.random() * lands.length)];
+    return data.data[Math.floor(Math.random() * data.data.length)];
   }
-
   /**
    * Funzione che simula l'apertura di un booster pack
    */
@@ -84,11 +95,11 @@ export default function App() {
           .fill(null)
           .map(() => fetchCard(selectedSet, "rarity:common"))
       );
-      //TODO aggiugere una land o un token
-      const land = await fetchLand(selectedSet);
+
+      const land_token = await fetchLandOrToken(selectedSet);
 
       // Salviamo tutte le carte in stato
-      setBooster([rare, ...uncommons, ...commons, land]);
+      setBooster([rare, ...uncommons, ...commons, land_token]);
       //setOpening(false);
       setLoading(false); // finito caricamento
     }, 500);
