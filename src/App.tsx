@@ -105,21 +105,6 @@ export default function App() {
     <div className="container py-4">
       <div className="position-relative text-center mb-3">
         <h1 className="fw-bold m-0  display-6 ">✨ Magic: The Gathering ✨</h1>
-        <button
-          className={`btn ${
-            theme === "light" ? "btn-dark" : "btn-light"
-          } position-absolute end-0 top-50 translate-middle-y`}
-          onClick={toggleTheme}
-        >
-          {/* TODO aggiustare bottone da mobile */}
-          {/* Solo emoji sempre visibile */}
-          {theme === "light" ? "🌙" : "☀️"}
-
-          {/* Testo visibile solo da md in su */}
-          <span className="d-none d-md-inline ms-1">
-            {theme === "light" ? "Dark" : "Light"}
-          </span>
-        </button>
       </div>
 
       <h2 className="text-center mb-4 display-7 ">Booster Pack Simulator</h2>
